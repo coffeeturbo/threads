@@ -33,30 +33,4 @@ public class BlockQueueTest {
 
         Assert.assertEquals(1, queue.getQueue().size());
     }
-
-    @Test
-    public void whenManyTimes() {
-        BlockQueue<Integer> queue = new BlockQueue<>();
-
-        Thread producer = new Thread(() -> {
-            for (int i = 1; i <= 5; i++) {
-                queue.offer(i);
-            }
-        });
-
-
-        Thread consumer = new Thread(() -> {
-            while (true) {
-                System.out.println(queue.poll());
-            }
-        });
-
-        consumer.start();
-        producer.start();
-
-//        producer.join();
-//        consumer.join();
-
-//        Assert.assertEquals(0, queue.getQueue().size());
-    }
 }

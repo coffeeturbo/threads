@@ -22,18 +22,13 @@ public class CountTest {
 
     @Test
     public void whenExecute2ThreadThen2() throws InterruptedException {
-        //Создаем счетчик.
         final Count count = new Count();
-        //Создаем нити.
         Thread first = new ThreadCount(count);
         Thread second = new ThreadCount(count);
-        //Запускаем нити.
         first.start();
         second.start();
-        //Заставляем главную нить дождаться выполнения наших нитей.
         first.join();
         second.join();
-        //Проверяем результат.
         assertThat(count.get(), is(2));
     }
 
