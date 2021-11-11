@@ -10,7 +10,7 @@ import java.util.Queue;
 @ThreadSafe
 public class SimpleBlockingQueue<T> {
     @GuardedBy("this")
-    private Queue<T> queue = new LinkedList<>();
+    private final Queue<T> queue = new LinkedList<>();
 
     private final Integer capacity;
 
@@ -53,7 +53,7 @@ public class SimpleBlockingQueue<T> {
         return this.queue.size();
     }
 
-    public boolean isEmpty() {
+    public synchronized boolean isEmpty() {
         return this.queue.isEmpty();
     }
 
