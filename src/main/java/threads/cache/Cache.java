@@ -11,9 +11,9 @@ public class Cache {
     }
 
     public boolean update(Base model) {
-        memory.computeIfAbsent(model.getId(), integer -> {
+        if (memory.get(model.getId()) == null) {
             throw new OptimisticException("id not found in cache");
-        });
+        }
 
         return memory.computeIfPresent(model.getId(), (integer, cache) -> {
             if (cache.getVersion() != model.getVersion()) {
