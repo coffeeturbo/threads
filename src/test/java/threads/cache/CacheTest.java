@@ -1,13 +1,7 @@
 package threads.cache;
 
-import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Test;
-
-import java.util.concurrent.Callable;
-
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
 
 public class CacheTest {
 
@@ -44,18 +38,7 @@ public class CacheTest {
         cache.delete(base);
         Base user2 = Base.builder().id(1).version(0).build();
         user2.setName("User 1");
-        Assert.assertThrows("нет в кеше", OptimisticException.class, () -> cache.update(user2));
+        Assert.assertTrue(cache.add(user2));
     }
 
-    @Test
-    public void failDelete() {
-        Cache cache = new Cache();
-        Base base = Base.builder().id(1).version(0).build();
-        cache.add(base);
-        Base base1 = Base.builder().id(1).version(1).build();
-        Assert.assertThrows("разные версии не удаляем", OptimisticException.class,  () -> cache.delete(base1));
-        Base user2 = Base.builder().id(1).version(0).build();
-        user2.setName("User 1");
-        Assert.assertTrue(cache.update(user2));
-    }
 }
